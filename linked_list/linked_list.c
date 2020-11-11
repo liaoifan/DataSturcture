@@ -22,11 +22,13 @@ NODE_POINTER createLinkedList(int nums[], int size) {
 }
 
 void printLinkedList(NODE_POINTER head) {
+  int i = 0;
   while (head != NULL) {
-    printf("%d -> ", head->data);
+    printf("[%d]%d -> ", i, head->data);
     head = head->next;
+    i++;
   }
-  printf("null\n");
+  printf("null\n\n");
 }
 
 void releaseLinkedList(NODE_POINTER *head) {
@@ -68,24 +70,38 @@ NODE_POINTER addAtIndex(NODE_POINTER *head, int index, int val) {
     return addAtHead(head, val);
   }
 
-  int counter = 1;
-  NODE_POINTER temp = (NODE_POINTER)malloc(sizeof(NODE));
+  int linked_list_length = 1;
+  NODE_POINTER temp;
   temp = *head;
   while (temp->next != NULL) {
     temp = temp->next;
-    ++counter;
+    ++linked_list_length;
   }
 
-  if (index == counter) {
+  if (index == linked_list_length) {
     return addAtTail(head, val);
-  } else if (index > 0 && index < counter) {
-    //		temp->data = val;
+  } else if (index > 0 && index < linked_list_length) {
+    NODE_POINTER insert = (NODE_POINTER)malloc(sizeof(NODE));
+    insert->data = val;
+    insert->next = NULL;
 
+    NODE_POINTER find_new = *head;
+    NODE_POINTER find_old = NULL;
+    int counter = 0;
+    while (counter != index) {
+      find_old = find_new;
+      find_new = find_new->next;
+      counter++;
+    }
+    insert->next = find_new;
+    find_old->next = insert;
+
+    return *head;
   } else {
     return NULL;
   }
 }
 
-NODE_POINTER getAtIndex(NODE_POINTER head, int index) {}
+NODE_POINTER getAtIndex(NODE_POINTER head, int index) { return NULL; }
 
-bool deleteAtIndex(NODE_POINTER *head, int index) {}
+bool deleteAtIndex(NODE_POINTER *head, int index) { return NULL; }

@@ -4,43 +4,39 @@
 
 int main(int argc, char* argv[]) {
   NODE_POINTER head;
-  int nums[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+  int nums[] = {1, 2, 3, 4, 5};
 
   head = createLinkedList(nums, sizeof(nums) / sizeof(nums[0]));
 
-  printf("原始資料：  ");
+  printf("原始資料：\n");
   printLinkedList(head);
 
   addAtHead(&head, 10);
-  printf("在頭加上10：");
+  printf("在頭加上10：\n");
   printLinkedList(head);
 
   addAtHead(&head, 20);
-  printf("在頭加上20：");
-  printLinkedList(head);
-
-  addAtHead(&head, 30);
-  printf("在頭加上30：");
+  printf("在頭加上20：\n");
   printLinkedList(head);
 
   addAtTail(&head, 10);
-  printf("在尾加上10：");
+  printf("在尾加上10：\n");
   printLinkedList(head);
 
   addAtTail(&head, 20);
-  printf("在尾加上20：");
+  printf("在尾加上20：\n");
   printLinkedList(head);
 
-  addAtTail(&head, 30);
-  printf("在尾加上30：");
+  addAtIndex(&head, 3, 4);
+  printf("在index[3]加上4：\n");
   printLinkedList(head);
 
-  addAtIndex(&head, 0, 10);
-  printf("在頭加上10：");
+  addAtIndex(&head, 1, 11);
+  printf("在index[1]加上11：\n");
   printLinkedList(head);
 
-  addAtIndex(&head, 17, 123);
-  printf("在尾加上123：");
+  addAtIndex(&head, 11, 14);
+  printf("在index[11]加上14：\n");
   printLinkedList(head);
 
   printf("原始：%p\n", head);
