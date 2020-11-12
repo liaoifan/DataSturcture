@@ -23,6 +23,9 @@ NODE_POINTER createLinkedList(int nums[], int size) {
 
 void printLinkedList(NODE_POINTER head) {
   int i = 0;
+  if (head != NULL) {
+    printf("head -> ");
+  }
   while (head != NULL) {
     printf("[%d]%d -> ", i, head->data);
     head = head->next;
