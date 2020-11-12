@@ -1,8 +1,8 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "linked_list.h"
-#include "stdbool.h"
 
 NODE_POINTER createLinkedList(int nums[], int size) {
   NODE_POINTER head = (NODE_POINTER)malloc(sizeof(NODE));
@@ -160,6 +160,29 @@ bool deleteAtIndex(NODE_POINTER *head, int index) {
     }
     temp_old->next = temp->next;
     free(temp);
+  }
+  return true;
+}
+
+bool compareLinkedList(NODE_POINTER *head1, NODE_POINTER *head2) {
+  NODE_POINTER nptr1 = *head1, nptr2 = *head2;
+
+  if (nptr1 == NULL && nptr2 == NULL) {
+    return true;
+  } else if (nptr1 == NULL || nptr2 == NULL) {
+    return false;
+  }
+
+  while ((nptr1 != NULL) && (nptr2 != NULL)) {
+    if (nptr1->data != nptr2->data) {
+      return false;
+    }
+
+    nptr1 = nptr1->next;
+    nptr2 = nptr2->next;
+    if ((nptr1 == NULL && nptr2 != NULL) || (nptr1 != NULL && nptr2 == NULL)) {
+      return false;
+    }
   }
   return true;
 }

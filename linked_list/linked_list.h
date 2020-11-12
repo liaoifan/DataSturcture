@@ -52,4 +52,6 @@ NODE_POINTER getAtIndex(NODE_POINTER *head, int index);
 //
 bool deleteAtIndex(NODE_POINTER *head, int);
 
+bool compareLinkedList(NODE_POINTER *head1, NODE_POINTER *head2);
+
 #endif
