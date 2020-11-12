@@ -5,6 +5,10 @@
 #include "linked_list.h"
 
 NODE_POINTER createLinkedList(int nums[], int size) {
+  if (size == 0) {
+    return NULL;
+  }
+
   NODE_POINTER head = (NODE_POINTER)malloc(sizeof(NODE));
   NODE_POINTER ptr_renew;
 
@@ -49,6 +53,10 @@ void releaseLinkedList(NODE_POINTER *head) {
 }
 
 NODE_POINTER addAtHead(NODE_POINTER *head, int val) {
+  if (*head == NULL) {
+    return NULL;
+  }
+
   NODE_POINTER temp = (NODE_POINTER)malloc(sizeof(NODE));
   temp->data = val;
   temp->next = *head;
@@ -57,6 +65,10 @@ NODE_POINTER addAtHead(NODE_POINTER *head, int val) {
 }
 
 NODE_POINTER addAtTail(NODE_POINTER *head, int val) {
+  if (*head == NULL) {
+    return NULL;
+  }
+
   NODE_POINTER temp = (NODE_POINTER)malloc(sizeof(NODE));
   temp->data = val;
   temp->next = NULL;
@@ -133,7 +145,7 @@ NODE_POINTER getAtIndex(NODE_POINTER *head, int index) {
 
 bool deleteAtIndex(NODE_POINTER *head, int index) {
   int length = LinkedList_Length(head);
-  if (index < 0 || index >= length) {
+  if ((index < 0) || (index >= length)) {
     return false;
   }
 
