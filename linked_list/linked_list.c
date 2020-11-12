@@ -23,18 +23,20 @@ NODE_POINTER createLinkedList(int nums[], int size) {
 
 void printLinkedList(NODE_POINTER head) {
   int i = 0;
-  if (head != NULL) {
-    printf("head -> ");
-  }
+  printf("head -> ");
   while (head != NULL) {
     printf("[%d]%d -> ", i, head->data);
     head = head->next;
     i++;
   }
-  printf("null\n\n");
+  printf("NULL\n\n");
 }
 
 void releaseLinkedList(NODE_POINTER *head) {
+  if (*head == NULL) {
+    return;
+  }
+
   NODE_POINTER release = *head;
   NODE_POINTER ptr_current_next;
   do {
@@ -68,18 +70,28 @@ NODE_POINTER addAtTail(NODE_POINTER *head, int val) {
   return *head;
 }
 
+int LinkedList_Length(NODE_POINTER *head) {
+  int length = 0;
+  if (*head == NULL) {
+    return length;
+  }
+  ++length;
+
+  NODE_POINTER temp;
+  temp = *head;
+  while (temp->next != NULL) {
+    temp = temp->next;
+    ++length;
+  }
+  return length;
+}
+
 NODE_POINTER addAtIndex(NODE_POINTER *head, int index, int val) {
   if (index == 0) {
     return addAtHead(head, val);
   }
 
-  int linked_list_length = 1;
-  NODE_POINTER temp;
-  temp = *head;
-  while (temp->next != NULL) {
-    temp = temp->next;
-    ++linked_list_length;
-  }
+  int linked_list_length = LinkedList_Length(head);
 
   if (index == linked_list_length) {
     return addAtTail(head, val);
@@ -105,6 +117,49 @@ NODE_POINTER addAtIndex(NODE_POINTER *head, int index, int val) {
   }
 }
 
-NODE_POINTER getAtIndex(NODE_POINTER head, int index) { return NULL; }
+NODE_POINTER getAtIndex(NODE_POINTER *head, int index) {
+  int length = LinkedList_Length(head);
+  if (index < 0 || index >= length) {
+    return NULL;
+  }
+  NODE_POINTER search = *head;
+  int search_index = 0;
+  while (search_index != index) {
+    search = search->next;
+    search_index++;
+  }
+  return search;
+}
 
-bool deleteAtIndex(NODE_POINTER *head, int index) { return NULL; }
+bool deleteAtIndex(NODE_POINTER *head, int index) {
+  int length = LinkedList_Length(head);
+  if (index < 0 || index >= length) {
+    return false;
+  }
+
+  NODE_POINTER temp = NULL;
+  if (index == 0) {
+    temp = (*head)->next;
+    free(*head);
+    *head = temp;
+  } else if (index == length - 1) {
+    temp = *head;
+    NODE_POINTER temp_old = NULL;
+    while (temp->next != NULL) {
+      temp_old = temp;
+      temp = temp->next;
+    }
+    free(temp);
+    temp_old->next = NULL;
+  } else {
+    temp = *head;
+    NODE_POINTER temp_old = NULL;
+    for (int i = 0; i < index; i++) {
+      temp_old = temp;
+      temp = temp->next;
+    }
+    temp_old->next = temp->next;
+    free(temp);
+  }
+  return true;
+}

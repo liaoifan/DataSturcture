@@ -44,7 +44,7 @@ NODE_POINTER addAtIndex(NODE_POINTER *head, int index, int val);
 //
 // Return the pointer at specific index if success; Otherwise, return NULL;
 //
-NODE_POINTER getAtIndex(NODE_POINTER head, int index);
+NODE_POINTER getAtIndex(NODE_POINTER *head, int index);
 
 //
 // Return TRUE if success; Otherwise, return FALSE

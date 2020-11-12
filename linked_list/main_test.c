@@ -11,21 +11,24 @@ enum choice {
   CHOICE_GetAtIndex,
   CHOICE_DeleteAtIndex,
   CHOICE_ReleaseLinkedList,
+  CHOICE_PrintLinkedList,
   CHOICE_Exit,
 };
 
 int main(int argc, char* argv[]) {
-  int nums[1] = {0};
   NODE_POINTER head = NULL;
-
+  NODE_POINTER temp = NULL;
+  int nums[1] = {0};
   int input = 0;
+  int index = 0;
   bool execution = true;
+  bool BOOL = true;
 
   while (execution) {
     printf(
-        "請輸入數值以執行功能：\n0. Creat Linked List\n1. Add at Head\n2. Add "
-        "at Index\n3. Add at Tail\n4. Get at Index\n5. Delete at Index\n6. "
-        "Release Linked List\n7. Exit\n");
+        "0. Creat Linked List\n1. Add at Head\n2. Add at Index\n3. Add at "
+        "Tail\n4. Get at Index\n5. Delete at Index\n6. Release Linked List\n7. "
+        "Print Linked List\n8. Exit\n請輸入數值以執行功能：");
     scanf("%d", &input);
     switch (input) {
       case CHOICE_CreatLinkedList:
@@ -50,7 +53,6 @@ int main(int argc, char* argv[]) {
         break;
       case CHOICE_AddAtIndex:
         if (head != NULL) {
-          int index = 0;
           printf("請輸入要插入的index：");
           scanf("%d", &index);
           printf("請輸入要插入的值：");
@@ -75,14 +77,44 @@ int main(int argc, char* argv[]) {
         }
         break;
       case CHOICE_GetAtIndex:
-        printf("功能開發中\n\n");
+        if (head == NULL) {
+          printf("請先創建Linked List\n\n");
+          break;
+        }
+        printf("請輸入要查詢資料的index：");
+        scanf("%d", &index);
+        temp = getAtIndex(&head, index);
+        if (temp != NULL) {
+          printf("index[%d]的值是%d\n\n", index, temp->data);
+        } else {
+          printf("請輸入正確的index值\n\n");
+        }
         break;
       case CHOICE_DeleteAtIndex:
-        printf("功能開發中\n\n");
+        if (head == NULL) {
+          printf("請先創建Linked List\n\n");
+          break;
+        }
+        printf("請輸入要刪除資料的index：");
+        scanf("%d", &index);
+        BOOL = deleteAtIndex(&head, index);
+        if (BOOL) {
+          printf("已將原index[%d]資料刪除\n", index);
+          printLinkedList(head);
+        } else {
+          printf("請輸入正確的index值\n\n");
+        }
         break;
       case CHOICE_ReleaseLinkedList:
+        if (head == NULL) {
+          printf("請先創建Linked List\n\n");
+          break;
+        }
         releaseLinkedList(&head);
         printf("已將Linked List刪除\n\n");
+        break;
+      case CHOICE_PrintLinkedList:
+        printLinkedList(head);
         break;
       case CHOICE_Exit:
         printf("程式結束...\n\n");
