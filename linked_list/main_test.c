@@ -15,6 +15,10 @@ enum choice {
   CHOICE_Exit,
 };
 
+void print_CheckIndex() { printf("請確定輸入的index是否有效\n\n"); }
+
+void print_CreatLinkedList() { printf("請先創建Linked List\n\n"); }
+
 int main(int argc, char* argv[]) {
   NODE_POINTER head = NULL;
   NODE_POINTER temp = NULL;
@@ -23,20 +27,6 @@ int main(int argc, char* argv[]) {
   bool execution = true;
   bool success_delete = true;
 
-  /*
-  //臨時測試createLinkedList：將 nums1[] 和 nums2[] 轉成 linked list
-  後，判斷2者內容是否相同 int nums1[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; int
-  nums2[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 9}; NODE_POINTER head1 = NULL, head2 =
-  NULL; head1 = createLinkedList(nums1, sizeof(nums1) / sizeof(nums1[0])); head2
-  = createLinkedList(nums2, sizeof(nums2) / sizeof(nums2[0]));
-  if(compareLinkedList(&head1, &head2)){
-    printf("2組linked list資料相同\n");
-  } else {
-    printf("2組linked list資料不同\n");
-  }
-  */
-
-  //  /*
   while (execution) {
     printf(
         "0. Creat Linked List\n1. Add at Head\n2. Add at Index\n3. Add at "
@@ -61,7 +51,7 @@ int main(int argc, char* argv[]) {
           addAtHead(&head, input);
           printLinkedList(head);
         } else {
-          printf("請先創建Linked List\n\n");
+          print_CreatLinkedList();
         }
         break;
       case CHOICE_AddAtIndex:
@@ -73,10 +63,10 @@ int main(int argc, char* argv[]) {
           if (addAtIndex(&head, index, input) != NULL) {
             printLinkedList(head);
           } else {
-            printf("請確定輸入的index是否有效\n\n");
+            print_CheckIndex();
           }
         } else {
-          printf("請先創建Linked List\n\n");
+          print_CreatLinkedList();
         }
         break;
       case CHOICE_AddAtTail:
@@ -86,12 +76,12 @@ int main(int argc, char* argv[]) {
           addAtTail(&head, input);
           printLinkedList(head);
         } else {
-          printf("請先創建Linked List\n\n");
+          print_CreatLinkedList();
         }
         break;
       case CHOICE_GetAtIndex:
         if (head == NULL) {
-          printf("請先創建Linked List\n\n");
+          print_CreatLinkedList();
           break;
         }
         printf("請輸入要查詢資料的index：");
@@ -100,12 +90,12 @@ int main(int argc, char* argv[]) {
         if (temp != NULL) {
           printf("index[%d]的值是%d\n\n", index, temp->data);
         } else {
-          printf("請輸入正確的index值\n\n");
+          print_CheckIndex();
         }
         break;
       case CHOICE_DeleteAtIndex:
         if (head == NULL) {
-          printf("請先創建Linked List\n\n");
+          print_CreatLinkedList();
           break;
         }
         printf("請輸入要刪除資料的index：");
@@ -115,18 +105,22 @@ int main(int argc, char* argv[]) {
           printf("已將原index[%d]資料刪除\n", index);
           printLinkedList(head);
         } else {
-          printf("請輸入正確的index值\n\n");
+          print_CheckIndex();
         }
         break;
       case CHOICE_ReleaseLinkedList:
         if (head == NULL) {
-          printf("請先創建Linked List\n\n");
+          print_CreatLinkedList();
           break;
         }
         releaseLinkedList(&head);
         printf("已將Linked List刪除\n\n");
         break;
       case CHOICE_PrintLinkedList:
+        if (head == NULL) {
+          print_CreatLinkedList();
+          break;
+        }
         printLinkedList(head);
         break;
       case CHOICE_Exit:
@@ -138,6 +132,5 @@ int main(int argc, char* argv[]) {
         printf("請輸入有效的值\n\n");
     }
   }
-  //  */
   return 0;
 }
